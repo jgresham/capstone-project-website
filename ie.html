@@ -32,7 +32,8 @@ technology plus KG will be able to give the user an answer in natural
 language.</p>
 
 <h2>Named entity recognition</h2>
-<p>Named entity recognition is used to identify which tokens in text could
+<p><a href="https://en.wikipedia.org/wiki/Named-entity_recognition">Named entity recognition</a>
+is used to identify which tokens in text could
 be grounded as entities which are part of world knowledge (for example,
 country names, dates, and peoples' names). These can be used not only to
 create the basis for a database (one entry per entity), but also for easier
@@ -53,7 +54,8 @@ be made.</p>
 <p>Sequence modeling is a more general technique used to learn and predict things
 about/given the sequence of tokens in a document. Another application of
 sequence modeling is part of speech tagging. One fairly simple sequence model
-is a hidden Markov model.</p>
+is a
+<a href="https://en.wikipedia.org/wiki/Hidden_Markov_model">hidden Markov model.</a></p>
 <img src="http://iacs-courses.seas.harvard.edu/courses/am207/blog/hmm.png" width=580 height=213/>
 <p>In the image above, the bottom nodes <i>x</i> are hidden nodes. The top
 nodes <i>y</i> are observed. In the named entity recognition task, one can
@@ -72,7 +74,9 @@ index.</p>
 <p>This may seem a little odd, because there is one probability distribution over
 the whole token vocabulary for each named entity tag. It's supposing that you
 are able to predict a most likely token given that you know it's, for example,
-not a named entity. The conditional random field approach is another sequence
+not a named entity. The
+<a href="https://en.wikipedia.org/wiki/Conditional_random_field">conditional random field</a>
+approach is another sequence
 modeling approach which doesn't use this assumption, and can perform better
 on some tasks. But the hidden Markov model approach is able to achieve high
 accuracies for some tasks.</p>
@@ -89,8 +93,6 @@ computation for each iteration (each token), but reuses computations from
 earlier indices. It finds the probability of the most probable tag sequence
 for the document. A backpropogation table allows the program to find what
 that most probable sequence is.</p>
-in the document, but reuses computations
-
 
 </body>
 </html>
