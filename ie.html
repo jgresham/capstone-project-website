@@ -5,7 +5,6 @@
 </head>
 <body>
 <h1>Information extraction</h1>
-<br />
 <h2>Introduction</h2>
 <p>Most of the world's information is unstructured. Examples of this include
 books, encyclopedic websites, forums, and news articles. While humans are able
@@ -15,15 +14,14 @@ hinders the ability for our computational systems and software to use this
 unstructured data. Information extraction techniques allow us to extract
 structured information from unstructured text so that computational systems
 can understand and use it better.</p>
-<br />
 
 <h2>Uses in question/answering systems</h2>
 <p>Although Watson is able to "understand" unstructured text in a way, many
 systems are not able to do so, and in other cases, it's much easier to process
 structured text (for example, generating lists, tables, and doing data
-analysis).
+analysis).</p>
 <br />
-An alternative to NLP-heavy systems like Watson is creating a database
+<p>An alternative to NLP-heavy systems like Watson is creating a database
 (in many cases, a domain-specific database such as one related to medical
 topics) and creating an interface with which users can query the system. This
 interface can be used with NLP technology to allow users to query it with
@@ -33,7 +31,6 @@ of this is Google's Knowledge Graph. KG was developed from
 allows you to perform a query such as, "How tall is Obama?", and their NLP
 technology plus KG will be able to give the user an answer in natural
 language.</p>
-<br />
 
 <h2>Named entity recognition</h2>
 <p>Named entity recognition is used to identify which tokens in text could
@@ -42,6 +39,63 @@ country names, dates, and peoples' names). These can be used not only to
 create the basis for a database (one entry per entity), but also for easier
 processing of unstructured text. Once a system is relatively sure of which
 tokens indicate named entities, it can more easily process the relations
-between the entities.</p>
+between the entities. Two techniques to named entity recognition are
+sequence modeling and grammar-based techniques.</p>
+<h3>Grammar-based techniques</h3>
+<p>Many named entities fit patterns which are easy to find in text. For
+example, most proper nouns start with a capital letter (and for every word in
+the noun phrase, all words are capitalized, with a few exceptions). It is
+less computationally expensive to write a script which identifies tokens in
+a document matching a certain pattern (e.g. capitalized or near a word like
+"Inc."), but is more time-intensive on the person constructing the patterns,
+because many examples need to be looked at and lots of generalizations need to
+be made.</p>
+<h3>Sequence modeling</h3>
+<p>Sequence modeling is a more general technique used to learn and predict things
+about/given the sequence of tokens in a document. Another application of
+sequence modeling is part of speech tagging. One fairly simple sequence model
+is a hidden Markov model.</p>
+<img src="http://iacs-courses.seas.harvard.edu/courses/am207/blog/hmm.png" />
+<p>In the image above, the bottom nodes <i>x</i> are hidden nodes. The top
+nodes <i>y</i> are observed. In the named entity recognition task, one can
+think of the observed nodes as the tokens in a sentence, and the hidden nodes
+as the named entity tags. The program building and performing inference on
+a hidden Markov model will define a tag set for the possible hidden NER tags.
+For example, they might have a tag <i>no entity</i>, and for each kind of
+named entity tag (person, location, date, etc.), they will have a <i>begin</i>
+and <i>continue</i> tag to indicate the location of the entity (and also be
+able to deal with entities next to one another).</p>
+<br />
+<p>In the diagram, you can see that arrows point from each named entity tag,
+and each named entity tag is directed towards one token. This is a way of
+denoting that each internal state (named entity tag) is dependent on the
+previous state, and each token is dependent on the hidden tag at that
+index.</p>
+<br />
+<p>This may seem a little odd, because there is one probability distribution over
+the whole token vocabulary for each named entity tag. It's supposing that you
+are able to predict a most likely token given that you know it's, for example,
+not a named entity. The conditional random field approach is another sequence
+modeling approach which doesn't use this assumption, and can perform better
+on some tasks. But the hidden Markov model approach is able to achieve high
+accuracies for some tasks.</p>
+<br />
+<p>A hidden Markov model is built by counting word and tag frequencies. At the
+minimum, it must know probabilities of transitioning from one tag to
+another (in which you could learn a pattern such as "place names usually have
+more than one token in them"), and it also must know the probabilities of a
+word being a particular token given that you know its tag. These both can be
+found by counting words and named entity tags (requiring that we have a
+dataset of documents in which each word is tagged as a part of speech).</p>
+<br />
+<p>Inference is performed on hidden Markov models using the Viterbi algorithm.
+This is a functional programming algorithm in that it performs the same
+computation for each iteration (each token), but reuses computations from
+earlier indices. It finds the probability of the most probable tag sequence
+for the document. A backpropogation table allows the program to find what
+that most probable sequence is.</p>
+in the document, but reuses computations
+
+
 </body>
 </html>
