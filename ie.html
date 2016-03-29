@@ -108,6 +108,21 @@ more than just named entity recognition (e.g. part of speech tagging, parsing,
 lemmatization, etc.). It uses a conditional random field. It is written in
 Java but you can use a Python wrapper with it.</li>
 </ul>
-
+<h2>Relation extraction</h2>
+<p>Once named entities are found, relational databases can be found and built
+using the entities and the context in which they appear. For example, some
+sentences in the text might indicate who is the leader of some country. The
+goal of relation extraction is, once we know which tokens refer to what
+entities, to find how they are related by using unstructured text. There are
+a few more approaches to relation extraction.</p>
+<p>Like in named entity recognition, we could use grammar-based techniques and
+supervised learning. Grammar-based techniques are a little easier because it
+might be possible to find simple patterns which cover a lot of examples of a
+certain relation. However, these rules are very tough to generalize. In
+addition, supervised learning is more difficult with relation extraction than
+with NER, because it's most intensive to annotate, and because the sentence
+features will be a little more complicated (over the entire sentence, its
+n-grams, and where the entities occur, rather than just short sequences of
+words).</p>
 </body>
 </html>
