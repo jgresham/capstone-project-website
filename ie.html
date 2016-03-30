@@ -123,6 +123,7 @@ sentences in the text might indicate who is the leader of some country. The
 goal of relation extraction is, once we know which tokens refer to what
 entities, to find how they are related by using unstructured text. There are
 a few more approaches to relation extraction.</p>
+<h3>Supervised approaches</h3>
 <p>Like in named entity recognition, we could use grammar-based techniques and
 supervised learning. Grammar-based techniques are a little easier because it
 might be possible to find simple patterns which cover a lot of examples of a
@@ -132,6 +133,7 @@ with NER, because it's most intensive to annotate, and because the sentence
 features will be a little more complicated (over the entire sentence, its
 n-grams, and where the entities occur, rather than just short sequences of
 words).</p>
+<h3>Unsupervised approaches</h3>
 <p>In addition to grammar-based or supervised techniques, there are several
 semi- or unsupervised learning techniques which can be used for relation
 extraction. One semi-supervised approach is starting with just a few example
@@ -150,5 +152,13 @@ of the US, then we will assume any sentences mentioning both express that
 relation. Of course, this assumption isn't always true and there might be a lot
 of false positives, but it does allow us to find new rules or conditions which
 we might not have thought of as expressing a particular relation.</p>
+<h3>Resources</h3>
+<ul>
+<li>Wikipedia info boxes</li>
+<li>Freebase</li>
+<li><a href=https://en.wikipedia.org/wiki/Knowledge_Graph">Google's Knowledge Graph</a>
+ -- based off of Freebase originally</li>
+<li>other tables on the web</li>
+</ul>
 </body>
 </html>
