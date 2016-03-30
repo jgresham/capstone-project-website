@@ -5,6 +5,12 @@
 </head>
 <body>
 <h1>Information extraction</h1>
+<ul>
+<li><a href=#introduction>Introduction</a></li>
+<li><a href=#named_entity_recognition>Named entity recognition</a></li>
+<li><a href=#relation_extraction>Relation extraction</a></li>
+</ul>
+<a name=introduction />
 <h2>Introduction</h2>
 <p>Most of the world's information is unstructured. Examples of this include
 books, encyclopedic websites, forums, and news articles. While humans are able
@@ -31,6 +37,7 @@ allows you to perform a query such as, "How tall is Obama?", and their NLP
 technology plus KG will be able to give the user an answer in natural
 language.</p>
 
+<a name=named_entity_recognition />
 <h2>Named entity recognition</h2>
 <p><a href="https://en.wikipedia.org/wiki/Named-entity_recognition">Named entity recognition</a>
 is used to identify which tokens in text could
@@ -108,6 +115,7 @@ more than just named entity recognition (e.g. part of speech tagging, parsing,
 lemmatization, etc.). It uses a conditional random field. It is written in
 Java but you can use a Python wrapper with it.</li>
 </ul>
+<a name=relation_extraction />
 <h2>Relation extraction</h2>
 <p>Once named entities are found, relational databases can be found and built
 using the entities and the context in which they appear. For example, some
@@ -124,5 +132,23 @@ with NER, because it's most intensive to annotate, and because the sentence
 features will be a little more complicated (over the entire sentence, its
 n-grams, and where the entities occur, rather than just short sequences of
 words).</p>
+<p>In addition to grammar-based or supervised techniques, there are several
+semi- or unsupervised learning techniques which can be used for relation
+extraction. One semi-supervised approach is starting with just a few example
+annotated sentences and using them to build a larger system. A drawback to this
+approach is that if the system gets off track even a little bit (i.e. if it
+makes a mistake, doesn't realize it, and then makes decisions assuming that the
+mistake is true), it could produce very odd results.</p>
+<p>Another approach is using
+previously-constructed databases. This is especially useful when trying to
+expand these databases. Two such databases are Freebase and Wikipedia (its
+information boxes). Given a set of known facts (relations) in these databases,
+and a set of new unannotated sentences, we could generate training data for a
+relation extractor by labeling sentences containing two entities in a relation
+as having that relation. For example, if we know that Obama is the president
+of the US, then we will assume any sentences mentioning both express that
+relation. Of course, this assumption isn't always true and there might be a lot
+of false positives, but it does allow us to find new rules or conditions which
+we might not have thought of as expressing a particular relation.</p>
 </body>
 </html>
