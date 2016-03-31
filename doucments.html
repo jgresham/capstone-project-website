@@ -20,6 +20,7 @@ document once stemming words and common words, stop words, are removed. A more d
 keyword might result from chossing the word with the highest <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf</a>
 value in the document. Using tf-idf instead of bag-of-words, will result in keywords that are
 less frequent across the domain and more unique to the document. </p>
+<img src="img/stopwords.jpg" width=580 height=213 />
 
 <p>More advanced techinques to assign keywords to documents use classifiers. Classifiers can take
 a set of labeled training data, documents with known keywords, and classify new doucments based on a
@@ -29,8 +30,8 @@ on vector representations of the documents. Ideally, once trained, the model sho
 with a similar feature vector to a training example as the same class as the training example. K-nearest neighbors
 classifier would assign a keyword to a doucment based on the k nearest documents' keywords.</p>
 
+<img src="img/k-nearest.png" width=580 height=213 />
 <p>To see an interesting implementation of k-nearest neighbors to classify hand-written digits checkout Burton DeWilde's <a href="http://bdewilde.github.io/blog/blogger/2012/10/26/classification-of-hand-written-digits-3/">example</a></p>
-
 
 <p>Feature vectors can be any combination of word frequency counts, tf-idf values, n-gram counts, etc.
 Basically anything that describes the contents and context of the document is likely a good candidate
@@ -38,16 +39,17 @@ for a feature in the feature vector. One common feature that captures some conte
 The n-grams model counts the number of times n sequence of words occurs in the document. Comparing phrases
 in documents is an easy way to represent order dependent data and involve distributional semantics.</p>
 
-<p>An alternative to NLP-heavy systems like Watson is creating a database
-(in many cases, a domain-specific database such as one related to medical
-topics) and creating an interface with which users can query the system. This
-interface can be used with NLP technology to allow users to query it with
-natural language, but there is an underlying structured database. An example
-of this is Google's Knowledge Graph. KG was developed from
-<a href="http://www.freebase.com">Freebase</a>, discussed later in this page. Google
-allows you to perform a query such as, "How tall is Obama?", and their NLP
-technology plus KG will be able to give the user an answer in natural
-language.</p>
+<h2>Document Filtering</h2>
+<p>A simple approach to ranking documents from a corpus based on a keyword is to pick the document in which the keyword appears most frequent
+or has the highest tf-idf value. This approach would seem to have some success, as long as the keyword lies in
+the text. If keywords for the document aren't directly in the text, then training a classifier with a labeled set
+of data could be a solution. A set of example keyword and corresponding highest document rankings is needed. So far we
+have only classified feature vectors from texts where the features only extract basic semantics -- up to the second level on the
+chart below. To improve the keyword to document ranking more semantic information should be considered. Especially if keyword 
+misspelling must be considered, such is the case with search engine queries.</p>
+
+<img src="img/semantics.png" width=580 height=213 />
+<p>Checkout how Microsoft applies machine learning to retrieve documents for search engine queries <a href="http://research.microsoft.com/en-us/people/hangli/wsdm12tutorial.pdf">example</a></p>
 
 <h3>Resources</h3>
 <ul>
