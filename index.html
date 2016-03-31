@@ -1,197 +1,231 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Clean Blog</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/clean-blog.min.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+    <title>Keyword generation and detection</title>
 </head>
-
 <body>
+<h1>Keyword generation and detection</h1>
+<p>QA systems...</p>
+<ul>
+<li><a href=#InformationExtraction>Information Extraction</a></li>
+<li><a href=#DocumentClassificationandFiltering>Document Classification and Filtering</a></li>
+<li><a href=#SynonymGeneration>Synonym Generation</a></li>
+</ul>
+<h1 id="InformationExtraction">Information extraction</h1>
+<ul>
+<li><a href=#introduction>Introduction</a></li>
+<li><a href=#named_entity_recognition>Named entity recognition</a></li>
+<li><a href=#relation_extraction>Relation extraction</a></li>
+</ul>
+<a name=introduction />
+<h2>Introduction</h2>
+<p>Most of the world's information is unstructured. Examples of this include
+books, encyclopedic websites, forums, and news articles. While humans are able
+to understand and extract information from these sources easily, this is a
+difficult problem for computers, and not being able to process these documents
+hinders the ability for our computational systems and software to use this
+unstructured data. Information extraction techniques allow us to extract
+structured information from unstructured text so that computational systems
+can understand and use it better.</p>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Start Bootstrap</a>
-            </div>
+<h2>Uses in question/answering systems</h2>
+<p>Although Watson is able to "understand" unstructured text in a way, many
+systems are not able to do so, and in other cases, it's much easier to process
+structured text (for example, generating lists, tables, and doing data
+analysis).</p>
+<p>An alternative to NLP-heavy systems like Watson is creating a database
+(in many cases, a domain-specific database such as one related to medical
+topics) and creating an interface with which users can query the system. This
+interface can be used with NLP technology to allow users to query it with
+natural language, but there is an underlying structured database. An example
+of this is Google's Knowledge Graph. KG was developed from
+<a href="http://www.freebase.com">Freebase</a>, discussed later in this page. Google
+allows you to perform a query such as, "How tall is Obama?", and their NLP
+technology plus KG will be able to give the user an answer in natural
+language.</p>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <a href="about.html">About</a>
-                    </li>
-                    <li>
-                        <a href="post.html">Sample Post</a>
-                    </li>
-                    <li>
-                        <a href="contact.html">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+<a name=named_entity_recognition />
+<h2>Named entity recognition</h2>
+<p><a href="https://en.wikipedia.org/wiki/Named-entity_recognition">Named entity recognition</a>
+is used to identify which tokens in text could
+be grounded as entities which are part of world knowledge (for example,
+country names, dates, and peoples' names). These can be used not only to
+create the basis for a database (one entry per entity), but also for easier
+processing of unstructured text. Once a system is relatively sure of which
+tokens indicate named entities, it can more easily process the relations
+between the entities. Two techniques to named entity recognition are
+sequence modeling and grammar-based techniques.</p>
+<h3>Grammar-based techniques</h3>
+<p>Many named entities fit patterns which are easy to find in text. For
+example, most proper nouns start with a capital letter (and for every word in
+the noun phrase, all words are capitalized, with a few exceptions). It is
+less computationally expensive to write a script which identifies tokens in
+a document matching a certain pattern (e.g. capitalized or near a word like
+"Inc."), but is more time-intensive on the person constructing the patterns,
+because many examples need to be looked at and lots of generalizations need to
+be made.</p>
+<h3>Sequence modeling</h3>
+<p>Sequence modeling is a more general technique used to learn and predict things
+about/given the sequence of tokens in a document. Another application of
+sequence modeling is part of speech tagging. One fairly simple sequence model
+is a
+<a href="https://en.wikipedia.org/wiki/Hidden_Markov_model">hidden Markov model.</a></p>
+<img src="http://iacs-courses.seas.harvard.edu/courses/am207/blog/hmm.png" width=580 height=213/>
+<p>In the image above, the bottom nodes <i>x</i> are hidden nodes. The top
+nodes <i>y</i> are observed. In the named entity recognition task, one can
+think of the observed nodes as the tokens in a sentence, and the hidden nodes
+as the named entity tags. The program building and performing inference on
+a hidden Markov model will define a tag set for the possible hidden NER tags.
+For example, they might have a tag <i>no entity</i>, and for each kind of
+named entity tag (person, location, date, etc.), they will have a <i>begin</i>
+and <i>continue</i> tag to indicate the location of the entity (and also be
+able to deal with entities next to one another).</p>
+<p>In the diagram, you can see that arrows point from each named entity tag,
+and each named entity tag is directed towards one token. This is a way of
+denoting that each internal state (named entity tag) is dependent on the
+previous state, and each token is dependent on the hidden tag at that
+index.</p>
+<p>This may seem a little odd, because there is one probability distribution over
+the whole token vocabulary for each named entity tag. It's supposing that you
+are able to predict a most likely token given that you know it's, for example,
+not a named entity. The
+<a href="https://en.wikipedia.org/wiki/Conditional_random_field">conditional random field</a>
+approach is another sequence
+modeling approach which doesn't use this assumption, and can perform better
+on some tasks. But the hidden Markov model approach is able to achieve high
+accuracies for some tasks.</p>
+<p>A hidden Markov model is built by counting word and tag frequencies. At the
+minimum, it must know probabilities of transitioning from one tag to
+another (in which you could learn a pattern such as "place names usually have
+more than one token in them"), and it also must know the probabilities of a
+word being a particular token given that you know its tag. These both can be
+found by counting words and named entity tags (requiring that we have a
+dataset of documents in which each word is tagged as a part of speech).</p>
+<p>Inference is performed on hidden Markov models using the Viterbi algorithm.
+This is a functional programming algorithm in that it performs the same
+computation for each iteration (each token), but reuses computations from
+earlier indices. It finds the probability of the most probable tag sequence
+for the document. A backpropogation table allows the program to find what
+that most probable sequence is.</p>
+<h3>Packages</h3>
+Some packages for named entity recognition include:
+<ul>
+<li><a href="https://gate.ac.uk/">GATE</a> is uses a GUI (and also has a Java
+interface). It supports many languages besides English.</li>
+<li><a href="https://cogcomp.cs.illinois.edu/page/software_view/NETagger">
+NETagger</a> is from UIUC and allows for tagging of basic NER types (people,
+organization, locations, other) and more advanced ones.</li>
+<li><a href="https://opennlp.apache.org/">OpenNLP</a> allows for more NLP
+tasks such as tokenization, POS tagging, etc.</li>
+<li><a href="http://stanfordnlp.github.io/CoreNLP/">Stanford CoreNLP</a> does
+more than just named entity recognition (e.g. part of speech tagging, parsing,
+lemmatization, etc.). It uses a conditional random field. It is written in
+Java but you can use a Python wrapper with it.</li>
+</ul>
+<a name=relation_extraction />
+<h2>Relation extraction</h2>
+<p>Once named entities are found, relational databases can be found and built
+using the entities and the context in which they appear. For example, some
+sentences in the text might indicate who is the leader of some country. The
+goal of relation extraction is, once we know which tokens refer to what
+entities, to find how they are related by using unstructured text. There are
+a few more approaches to relation extraction.</p>
+<h3>Supervised approaches</h3>
+<p>Like in named entity recognition, we could use grammar-based techniques and
+supervised learning. Grammar-based techniques are a little easier because it
+might be possible to find simple patterns which cover a lot of examples of a
+certain relation. However, these rules are very tough to generalize. In
+addition, supervised learning is more difficult with relation extraction than
+with NER, because it's most intensive to annotate, and because the sentence
+features will be a little more complicated (over the entire sentence, its
+n-grams, and where the entities occur, rather than just short sequences of
+words).</p>
+<h3>Unsupervised approaches</h3>
+<p>In addition to grammar-based or supervised techniques, there are several
+semi- or unsupervised learning techniques which can be used for relation
+extraction. One semi-supervised approach is starting with just a few example
+annotated sentences and using them to build a larger system. A drawback to this
+approach is that if the system gets off track even a little bit (i.e. if it
+makes a mistake, doesn't realize it, and then makes decisions assuming that the
+mistake is true), it could produce very odd results.</p>
+<p>Another approach is using
+previously-constructed databases. This is especially useful when trying to
+expand these databases. Two such databases are Freebase and Wikipedia (its
+information boxes). Given a set of known facts (relations) in these databases,
+and a set of new unannotated sentences, we could generate training data for a
+relation extractor by labeling sentences containing two entities in a relation
+as having that relation. For example, if we know that Obama is the president
+of the US, then we will assume any sentences mentioning both express that
+relation. Of course, this assumption isn't always true and there might be a lot
+of false positives, but it does allow us to find new rules or conditions which
+we might not have thought of as expressing a particular relation.</p>
+<h3>Resources</h3>
+<ul>
+<li>Wikipedia info boxes</li>
+<li>Freebase</li>
+<li><a href="https://en.wikipedia.org/wiki/Knowledge_Graph">Google's Knowledge Graph</a>
+ -- based off of Freebase originally</a></li>
+<li>other tables on the web</li>
+</ul>
 
-    <!-- Page Header -->
-    <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('img/home-bg.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="site-heading">
-                        <h1>Clean Blog</h1>
-                        <hr class="small">
-                        <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+<h1 id="DocumentClassificationandFiltering">Document classification and filtering</h1>
+<h2>Introduction</h2>
+<p>Many question answering systems look for answers in documents from the web or books.
+Knowing the contents or class of the document would likely be helpful in building the
+system. Reversely, knowing which documents are of a certain class could dramatically narrow
+the search space for documents containing the answer. We will refer to assigning a class
+or keyword as classifying the document. Ranking documents from a corpus most relevant to a 
+keyword is called document filtering. Note both doucment classification and filtering make 
+use of classifiers as we will explain.</p>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                            Man must explore, and this is exploration at its greatest
-                        </h2>
-                        <h3 class="post-subtitle">
-                            Problems look mighty small from 150 miles up
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                            I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-                        </h2>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 18, 2014</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                            Science has not yet mastered prophecy
-                        </h2>
-                        <h3 class="post-subtitle">
-                            We predict too much for the next year and yet far too little for the next ten.
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on August 24, 2014</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                            Failure is not an option
-                        </h2>
-                        <h3 class="post-subtitle">
-                            Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on July 8, 2014</p>
-                </div>
-                <hr>
-                <!-- Pager -->
-                <ul class="pager">
-                    <li class="next">
-                        <a href="#">Older Posts &rarr;</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+<h2>Document Classification</h2>
+<img src="img/class.png" width=400/>
+<p>A simple approach to assinging a class to a document is to assign it to the most frequent
+word occuring in the document. Called <a href="https://en.wikipedia.org/wiki/Bag-of-words_model">bag-of-words model</a>, it can produce a keyword in the general domain of the
+document once stemming words and common words, stop words, are removed. A more domain - in our case the document corpus - sensitive
+keyword might result from chossing the word with the highest <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf</a>
+value in the document. Using tf-idf instead of bag-of-words, will result in keywords that are
+less frequent across the domain and more unique to the document. </p>
+<img src="img/stopwords.jpg" />
 
-    <hr>
+<p>More advanced techinques to assign keywords to documents use classifiers. Classifiers can take
+a set of labeled training data, documents with known keywords, and classify new doucments based on a
+model it creates from the training data. Common classifiers used in document classification are 
+K-nearest neighbors, decision trees, naive bayes, SVM, etc. Classifiers however, create models based
+on vector representations of the documents. Ideally, once trained, the model should classify a document
+with a similar feature vector to a training example as the same class as the training example. K-nearest neighbors
+classifier would assign a keyword to a doucment based on the k nearest documents' keywords.</p>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted">Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+<img src="img/k-nearest.png" height=250 />
+<p>To see an interesting implementation of k-nearest neighbors to classify hand-written digits checkout Burton DeWilde's <a href="http://bdewilde.github.io/blog/blogger/2012/10/26/classification-of-hand-written-digits-3/">example</a></p>
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+<p>Feature vectors can be any combination of word frequency counts, tf-idf values, n-gram counts, etc.
+Basically anything that describes the contents and context of the document is likely a good candidate
+for a feature in the feature vector. One common feature that captures some context, is the n-grams model.
+The n-grams model counts the number of times n sequence of words occurs in the document. Comparing phrases
+in documents is an easy way to represent order dependent data and involve distributional semantics.</p>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+<h2>Document Filtering</h2>
+<img src="img/filtering.png" width=400/>
+<p>A simple approach to ranking documents from a corpus based on a keyword is to pick the document in which the keyword appears most frequent
+or has the highest tf-idf value. This approach would seem to have some success, as long as the keyword lies in
+the text. If keywords for the document aren't directly in the text, then training a classifier with a labeled set
+of data could be a solution. A set of example keyword and corresponding highest document rankings is needed. So far we
+have only classified feature vectors from texts where the features only extract basic semantics -- up to the second level on the
+chart below. To improve the keyword to document ranking more semantic information should be considered. Especially if keyword 
+misspelling must be considered, such is the case with search engine queries.</p>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="js/clean-blog.min.js"></script>
+<img src="img/semantics.png" height=330 />
+<p>Checkout how Microsoft applies machine learning to retrieve documents for search engine queries <a href="http://research.microsoft.com/en-us/people/hangli/wsdm12tutorial.pdf">example</a></p>
 
+<h3>Resources</h3>
+<ul>
+<li>Wikipedia</li>
+<li><a href="http://bdewilde.github.io/blog/blogger/2012/10/26/classification-of-hand-written-digits-3/">Burton DeWilde's hand-written digit classifier</li>
+<li><a href="http://research.microsoft.com/en-us/people/hangli/wsdm12tutorial.pdf">Microsoft's query answering research</li>
+<li><a href="http://web.cse.ohio-state.edu/~fuhry/5243/">Other knowledge from 5243 Data Mining course</a></li>
+</ul>
+
+<h1 id="SynonymGeneration">Synonym Generation</h1>
 </body>
-
 </html>
