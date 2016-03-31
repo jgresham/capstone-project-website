@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<h1>Document classification and filtering</h1>
+<h2>Introduction</h2>
+<p>Many question answering systems look for answers in documents from the web or books.
+Knowing the contents or class of the document would likely be helpful in building the
+system. Reversely, knowing which documents are of a certain class could dramatically narrow
+the search space for documents containing the answer. We will refer to assigning a class
+or keyword as classifying the document. Ranking documents from a corpus most relevant to a 
+keyword is called document filtering. Note both doucment classification and filtering make 
+use of classifiers as we will explain.</p>
+
+<h2>Document Classification</h2>
+<p>A simple approach to assinging a class to a document is to assign it to the most frequent
+word occuring in the document. Called <a href="https://en.wikipedia.org/wiki/Bag-of-words_model">bag-of-words model</a>, it can produce a keyword in the general domain of the
+document once stemming words and common words, stop words, are removed. A more domain - in our case the document corpus - sensitive
+keyword might result from chossing the word with the highest <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf</a>
+value in the document. Using tf-idf instead of bag-of-words, will result in keywords that are
+less frequent across the domain and more unique to the document. </p>
+
+<p>More advanced techinques to assign keywords to documents use classifiers. Classifiers can take
+a set of labeled training data, documents with known keywords, and classify new doucments based on a
+model it creates from the training data. Common classifiers used in document classification are 
+K-nearest neighbors, decision trees, naive bayes, SVM, etc. Classifiers however, create models based
+on vector representations of the documents. Ideally, once trained, the model should classify a document
+with a similar feature vector to a training example as the same class as the training example. K-nearest neighbors
+classifier would assign a keyword to a doucment based on the k nearest documents' keywords.</p>
+
+<p>To see an interesting implementation of k-nearest neighbors to classify hand-written digits checkout Burton DeWilde's <a href="http://bdewilde.github.io/blog/blogger/2012/10/26/classification-of-hand-written-digits-3/">example</a></p>
+
+
+<p>Feature vectors can be any combination of word frequency counts, tf-idf values, n-gram counts, etc.
+Basically anything that describes the contents and context of the document is likely a good candidate
+for a feature in the feature vector. One common feature that captures some context, is the n-grams model.
+The n-grams model counts the number of times n sequence of words occurs in the document. Comparing phrases
+in documents is an easy way to represent order dependent data and involve distributional semantics.</p>
+
+<p>An alternative to NLP-heavy systems like Watson is creating a database
+(in many cases, a domain-specific database such as one related to medical
+topics) and creating an interface with which users can query the system. This
+interface can be used with NLP technology to allow users to query it with
+natural language, but there is an underlying structured database. An example
+of this is Google's Knowledge Graph. KG was developed from
+<a href="http://www.freebase.com">Freebase</a>, discussed later in this page. Google
+allows you to perform a query such as, "How tall is Obama?", and their NLP
+technology plus KG will be able to give the user an answer in natural
+language.</p>
+
+<h3>Resources</h3>
+<ul>
+<li>Wikipedia</li>
+<li><a href="http://bdewilde.github.io/blog/blogger/2012/10/26/classification-of-hand-written-digits-3/">Burton DeWilde's hand-written digit classifier</li>
+<li><a href="http://web.cse.ohio-state.edu/~fuhry/5243/">Other knowledge from 5243 Data Mining course</a></li>
+</ul>
+</body>
+</html>
