@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Phrase similarity and substitution</title>
+</head>
+<body>
+<h1>Phrase Similarity and Substitution</h1>
+<ul>
+<li><a href=#introduction>Introduction</a></li>
+<li><a href=#qr>Query Rewriting</a></li>
+<li><a href=#dr>Distributional Semantics</a></li>
+<li><a href=#w2v>Word2Vec</a></li>
+</ul>
+<a name=introduction />
+<h2>Introduction</h2>
+<p>Due to the decentralized evolution of natural languages, the use of words and phrases that have the same or roughly similar meanings, is common in everyday speech and text. For computers to process natural language, they need to have some means by which to recognize when words are similar in meaning. This allows systems to process distinct sentences with identical meaning correctly, and results in language processing which more accurately reflects how humans use and understand language.</p>
+
+<h2>Uses in question/answering systems</h2>
+<p>Training Watson for a given corpus is an arduous task. Since the system cannot inherently know every query that is similar in meaning but different in representation, the team in charge of training must explicitly specify questions as similar questions until it has enough information to start drawing its own correct connections. This requires a significant amount of effort, and will still potentially miss a number of possible phrasings for a given question.</p>
+<p>If a computer system could be better trained to identify synonyms and other syntactical changes that result in sentences which are distinct but have similar meaning, a large portion of this training could be automated. This concept is already to some extent integrated into IBM Watson (http://www.icsi.berkeley.edu/icsi/sites/default/files/events/talk_20121109_gliozzo.pdf). This would lessen the amount of work developers have to do in training their systems.</p>
+
+<a name=qr />
+<h2>Query Rewriting</h2>
+<p>In addition to rewriting queries for training systems, query rewriting can be applied to queries used in active QA systems. Suppose for example that a user asks "Who leads the United States". If the system has only a document which refers to the president without mentioning the term "lead", the ability to somehow infer that the query is related to "Who is the president of the United States" becomes crucial to the system's success. IBM Watson uses this technology to quickly form connections between new knowledge-bases using information it has already digested (http://www.icsi.berkeley.edu/icsi/sites/default/files/events/talk_20121109_gliozzo.pdf).</p>
+<p>Successful query rewriting requires more than a database of synonyms and simple pattern matching to achieve human levels of detail. For instance, there are multiple varieties of words we can use when we consider potential query rewrite schemes. Examples include...</p>
+
+<ul>
+<li>
+<h3><a href="http://www.merriam-webster.com/dictionary/synonym">True Synonyms</a></h3>
+<p>Words which can be substituted for each-other without modifying the overall meaning of the sentence in which they appear. <i>Example: cat/feline.</i></p>
+</li>
+<li>
+<h3><a href="http://www.dictionary.com/browse/metonymy">Metonyms</a></h3>
+<p>Words and phrases which are commonly used in place of other words, deriving from some attribute associated with the concept being represented. <i>Example: red tape/bureaucracy</i></p>
+</li>
+<li>
+<h3><a href="https://www.oxforddictionaries.com/definition/english/conjugation">Conjugates</a></h3>
+<p>Variations on words dependent on tense, mood, voice, and cardinality. <i>Example: ran/run/running.</i></p>
+</li>
+</ul>
+
+<p>A lexical database called <a href="https://wordnet.princeton.edu/">Wordnet</a> can be used to store and query true synonyms and conjugates. While we can do a simple search and replace algorithm for iterating over true synonyms, more intensive methods are needed to handle the other possible rewrites. For instance, if we were to change a conjugate, the rest of the sentence would also need to change to retain syntactic correctness.</p>
+
+<a name=dr />
+<h2>Distributional Semantics</h2>
+<p>Distributional semantics is a research field that attempts to relate how the frequency and locations of a word or phrase within large sample sets can be used to understand its meaning. The field is based on a theory known as the Distributional Hypothesis (created by Zellig Harris [1] and popularized by J.R. Firth), which states that words used in the same contexts tend to have similar meanings. Following this assumption, we can imagine that if we had a large enough collection of well distributed data, the meaning of any word could be derived given it occurs in the context of another word whose meaning is already known. This concept has been applied as a possible explanation for how children learn language, in addition to its applications in computer science research [2]. While the hypothesis is not proven, it has been shown to be useful in practice.</p>
+<p>One concept derived from the Distributional Hypothesis is the idea of semantic distance. That is, since words which appear in similar contexts are assumed to have similar meanings, we can measure the similarity of their contexts to quantify just how similar their meanings might be. Through this quantification we arrive at "word vectors" which have a number of interesting properties that will be discussed later on this page.</p>
+</p>
+
+<a name=w2v />
+<h2>Word2Vec</h2>
+<p><a href="http://deeplearning4j.org/word2vec.html#intro">Word2Vec</a> is a collection of processes used to estimate properties of distributional semantics. It uses bag-of-words or skip-grams in conjunction with a two layer neural-network to create embeddings of words into a semantic space. This allows the construction of models for distributional semantics which can be updated on-the-fly by simply training the model on new data. Using word embeddings as the word vectors previously mentioned, we can easily estimate information about semantic distance.</p>
+<h3>Properties of Word Vectors</h3>
+<ul>
+<li><p>With Word2Vec, estimating semantic distance and comparing the distance between vectors is easy. Vectors with similar distance are assumed to have similar meaning, by the distributional hypothesis.</p><img>http://deeplearning4j.org/img/sweden_cosine_distance.png</img>
+<li><p>Word vectors can be used to estimate word translation between languages, because given a large corpus, the word vectors for a word in one language will be very similar to an equivalent word in another. This does not maintain grammatical properties, but can give rough estimates of meaning in some instances.</p><img>http://deeplearning4j.org/img/word2vec_translation.png</img></li>
+<li><p>Similarity between concepts can be established and used, even if their words are not transparently similar.</p>
+<img>http://deeplearning4j.org/img/countries_capitals.png</img></li>
+</ul>
+<p>If you're interested in trying Word2Vec or just want to see some source code, check out these implementations in a variety of languages.</p>
+<table>
+<tr><th>Language</th><th>Homepage</th></tr>
+<tr><td>C</td><td>https://code.google.com/archive/p/word2vec/</td></tr>
+<tr><td>Java</td><td>http://deeplearning4j.org/word2vec.html</td></tr>
+<tr><td>Python</td><td>http://radimrehurek.com/gensim/</td></tr>
+</table>
+<h2>Related Works</h2>
+<ol>
+<li><a href="http://ceur-ws.org/Vol-1347/paper17.pdf">A Cambridge paper exploring the theory of distributional semantics in implicit language learning.</li>
+<li>Harris, Z. (1954). "Distributional structure". Word 10 (23): 146–162.</li>
+<li><a href="http://deeplearning4j.org/">Images sourced from Deeplearning4j.</a></li>
+</ol>
+</body>
+</html>
